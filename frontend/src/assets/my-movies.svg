@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="150" viewBox="0 0 600 120" role="img" aria-label="MyMovie logo">
+  <defs>
+    <style type="text/css"><![CDATA[
+      .brand { font-family: "Poppins", "Montserrat", "Helvetica Neue", Arial, sans-serif; font-weight: 800; fill: #FFFFFF; letter-spacing: 0.2px; }
+    ]]></style>
+
+    <!-- subtle soft glow for the circle (optional) -->
+    <filter id="glow" x="-50%" y="-50%" width="800%" height="400%">
+      <feGaussianBlur stdDeviation="6" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- transparent background by default -->
+
+  <!-- red circular mark with big 'M' -->
+  <g transform="translate(0,0)">
+    <circle cx="64" cy="60" r="48" fill="#E53935" filter="url(#glow)"/>
+    <text x="34" y="80" font-size="64" font-weight="800" font-family="Poppins, Montserrat, Arial, sans-serif" fill="#FFFFFF">M</text>
+  </g>
+
+  <!-- rest of the wordmark ("yMovie") -->
+  <text class="brand" x="120" y="77" font-size="52">yMovie</text>
+</svg>
