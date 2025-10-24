@@ -9,23 +9,30 @@ import SeatLayout from './pages/SeatLayout.jsx'
 import MovieDetails from './pages/MovieDetails'
 import MyBookings from './pages/MyBookings'
 import { Toaster } from 'react-hot-toast'
+
 const App = () => {
   const isAdminRoute = useLocation().pathname.startsWith('/admin');
+
   return (
     <>
       <Toaster />
-     {!isAdminRoute && <Navbar />}
-      <Routes>
-        {/* Define your routes here */}
-        <Route path="/" element={<Home />} />
-        <Route path="/movies" element={<Movies />} />
-        <Route path="/movies/:id" element={<MovieDetails />} />
-        <Route path="/movies/:id/:date" element={<SeatLayout />} />
-        <Route path="/favorite" element={<Favorite />} />
-        <Route path="/my-bookings" element={<MyBookings />} />
-      </Routes>
-     {!isAdminRoute && <Footer />}
+      <div className="min-h-screen flex flex-col">
+        {!isAdminRoute && <Navbar />}
 
+        {/* Content grows and pushes footer down */}
+        <div className="flex-grow">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/movies" element={<Movies />} />
+            <Route path="/movies/:id" element={<MovieDetails />} />
+            <Route path="/movies/:id/:date" element={<SeatLayout />} />
+            <Route path="/favorite" element={<Favorite />} />
+            <Route path="/my-bookings" element={<MyBookings />} />
+          </Routes>
+        </div>
+
+        {!isAdminRoute && <Footer />}
+      </div>
     </>
   )
 }
