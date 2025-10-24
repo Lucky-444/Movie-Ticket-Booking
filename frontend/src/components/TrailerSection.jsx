@@ -15,13 +15,13 @@ const TrailerSection = () => {
       <p className="text-gray-300  font-semibold text-lg max-w-[900px] mx-auto">
         Trailer Section
       </p>
-      <div className="relative mt-6">
+        <div className="relative mt-6">
         <ReactPlayer
-          url={currentTrailer.videoUrl}
-          controls={false}
-          className="mx-auto max-w-full"
-          width="960px"
-          height="540px"
+        url={currentTrailer.videoUrl}
+        controls={true} // Add controls for debugging!
+        width='960px'
+        height='540px'  
+        playing={true}
         />
       </div>
       <div className="group grid grid-cols-4 gap-4 md:gap-8 mt-8 max-w-3xl mx-auto">
