@@ -1,11 +1,12 @@
-import { ChevronLeftIcon } from "lucide-react";
+import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import React, { useState } from "react";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
 const DateSelect = ({ dateTime, id }) => {
-        const navigate = useNavigate(); 
+  const navigate = useNavigate();
   const [selectedDate, setSelectedDate] = useState(null);
+
   const onBookHandler = () => {
     if (!selectedDate) {
       return toast("Please select a date to proceed with booking.", {
@@ -16,8 +17,9 @@ const DateSelect = ({ dateTime, id }) => {
     console.log("Booking for movie id:", id, "on date:", selectedDate);
     scrollTo(0, 0);
   };
+
   return (
-    <div id="dateSelect" className="pt-30">
+    <div id="dateselect" className="pt-30">
       <div
         className="flex flex-col md:flex-row items-center justify-between gap-10
     relative p-8 bg-primary/10 border border-primary/20 rounded-lg"
@@ -35,8 +37,11 @@ const DateSelect = ({ dateTime, id }) => {
                   key={date}
                   className={`flex flex-col items-center
       justify-center h-14 w-14 aspect-square rounded
-      cursor-pointer  ${selectedDate === date ? "bg-primary text-black font-bold" : "bg-white/10 hover:bg-primary/20"
-                    }`}
+      cursor-pointer ${
+        selectedDate === date
+          ? "bg-primary text-black font-bold"
+          : "bg-white/10 hover:bg-primary/20"
+      }`}
                   onClick={() => setSelectedDate(date)}
                 >
                   <span>{new Date(date).getDate()}</span>
@@ -48,11 +53,11 @@ const DateSelect = ({ dateTime, id }) => {
                 </button>
               ))}
             </span>
-            <cheveronRightIcon width={28} />
+            <ChevronRightIcon width={28} />
           </div>
         </div>
         <button
-                onClick={onBookHandler}
+          onClick={onBookHandler}
           className="px-6 py-3 bg-primary hover:bg-primary-dull
     transition rounded-full font-medium cursor-pointer"
         >
