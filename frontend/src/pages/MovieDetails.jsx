@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { dummyDateTimeData, dummyShowsData } from "../assets/assets";
 import { Heart, PlayCircleIcon, StarIcon } from "lucide-react";
 import timeFormat from "../lib/timeFormat";
 import DateSelect from "../components/DateSelect";
+import MovieCard from "../components/MovieCard";
+import Loading from "../components/Loading";
 
 const MovieDetails = () => {
   const { id } = useParams();
   console.log("Id", id);
+  const navigate = useNavigate();
 
   const [show, setShow] = useState(null);
 
@@ -32,7 +35,7 @@ const MovieDetails = () => {
   console.log("Show Data", show);
 
   if (!show) {
-    return <div className="text-center text-gray-400 mt-10">Loading...</div>;
+    return <Loading />;
   }
 
   return (
@@ -96,7 +99,7 @@ const MovieDetails = () => {
       <p className="text-lg font-medium mt-20">Your Favorite Cast</p>
       <div className="overflow-x-auto no-scrollbar mt-8 pb-4">
         <div className="flex items-center gap-4 w-max px-4">
-          {show.movie.casts.slice(0, 12).map((castMember , index) => (
+          {show.movie.casts.slice(0, 12).map((castMember, index) => (
             <div key={index}>
               <img
                 src={castMember.profile_path}
@@ -111,8 +114,24 @@ const MovieDetails = () => {
         </div>
       </div>
 
-     <DateSelect dateTime={show.dateTime} id={show.movie._id} />
+      <DateSelect dateTime={show.dateTime} id={show.movie._id} />
 
+      <p className="text-lg font-medium mt-20 mb-8">You May Also Like</p>
+      <div className="flex flex-wrap max-sm:justify-center gap-8">
+        {dummyShowsData.slice(0, 4).map((movie, index) => (
+          <MovieCard key={index} movie={movie} />
+        ))}
+      </div>
+
+      <div className="flex justify-center mt-20">
+        <button
+          onClick={() =>{ navigate(`/movies`); scrollTo(0, 0);}}
+          className="px-10 py-3 text-sm bg-primary hover:bg-primary-dull
+  transition rounded-md font-medium cursor-pointer"
+        >
+          Show more
+        </button>
+      </div>
     </div>
   );
 };
