@@ -1,7 +1,7 @@
 import React from 'react'
 import Navbar from './components/Navbar.jsx'
 import Footer from './components/Footer.jsx'
-import {Route,  Routes, useLocation } from 'react-router-dom'
+import { Route, Routes, useLocation } from 'react-router-dom'
 import Home from './pages/Home'
 import Movies from './pages/Movies.jsx'
 import Favorite from './pages/Favorite.jsx'
@@ -16,7 +16,7 @@ const App = () => {
   return (
     <>
       <Toaster />
-      <div className="min-h-screen flex flex-col">
+      <div className="min-h-screen flex flex-col bg-black text-white">
         {!isAdminRoute && <Navbar />}
 
         {/* Content grows and pushes footer down */}
