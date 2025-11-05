@@ -7,7 +7,7 @@ const UserSchema = new mongoose.Schema({
   image: { type: String, required: true },
 });
 
-// ✅ Use the model name as a string, not a variable
+// Use the model name as a string, not a variable
 const User = mongoose.model("User", UserSchema);
 
 export default User;
