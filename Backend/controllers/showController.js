@@ -61,7 +61,7 @@ const addMovies = async (req, res) => {
       //now save the movie to database
       await movie.save();
     }
-    
+
     const showsToCreate = [];
     showsInput.forEach((show) => {
       const showDate = show.date; // Expecting 'YYYY-MM-DD' format
@@ -93,4 +93,75 @@ const addMovies = async (req, res) => {
   }
 };
 
-export { getNowPlayingMovies, addMovies };
+// Api To get all shows from DB
+const getAllShows = async (req, res) => {
+  try {
+    const shows = await Show.find({showDateTime : {$gte: new Date()}}).populate('movie').sort({ showDateTime: 1 });
+
+    //filter Unique movies only
+    // const uniqueShowsMap = new Map();
+    // shows.forEach((show) => {
+    //   if (!uniqueShowsMap.has(show.movie._id.toString())) {
+    //     uniqueShowsMap.set(show.movie._id.toString(), show);
+    //   }
+    // });
+
+
+    const uniqueShows = new Set(shows.map(show => show.movie));
+
+    res.status(200).json({ success: true, shows : Array.from(uniqueShows) });
+  } catch (error) {
+    res.status(500).json({
+      error: "Failed to fetch shows",
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+//api to get single shows from DB
+const getShow = async (req, res) => {
+  try {
+    const { movieId } = req.params;
+    //get all upcoming shows for this movie
+    const shows = await Show.find({ movie: movieId , showDateTime : {$gte: new Date()}  })
+
+    const movie = await Movie.findById(movieId);
+
+    if(!movie){
+      return res.status(404).json({ success: false, message: "Movie not found" });
+    }
+
+    const dateTime = {};
+
+    shows.forEach((show) => {
+      const dateKey = show.showDateTime.toISOString().split('T')[0]; // 'YYYY-MM-DD'
+
+      if (!dateTime[dateKey]) {
+        dateTime[dateKey] = [];
+      }
+      dateTime[dateKey].push({
+        time : show.showDateTime,
+        showId : show._id,
+        showPrice : show.showPrice,
+      });
+    });
+
+    res.status(200).json({ success: true, dateTime, movie });
+  } catch (error) {
+    res.status(500).json({
+      error: "Failed to fetch show",
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+
+
+
+
+
+
+
+export { getNowPlayingMovies, addMovies , getAllShows , getShow };
