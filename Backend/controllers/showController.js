@@ -2,9 +2,18 @@ import Movie from "../models/Movie.js";
 import axios from "axios";
 import Show from "../models/Show.js";
 // api to get now playing movies from TMDB API
-const getNowPlayingMovies = (req, res) => {
+const getNowPlayingMovies = async (req, res) => {
   try {
     //do it 5hr.20mns
+    const {data} = await axios.get("https://api.themoviedb.org/3/movie/now_playing", {
+      headers: {
+        Authorization: `Bearer ${process.env.TMDB_API_KEY}`,
+      },
+    });
+
+    const movies = data.results;
+
+    res.status(200).json({ success: true, movies: movies });      
   } catch (error) {
     res.status(500).json({
       error: "Failed to fetch now playing movies",
@@ -52,6 +61,7 @@ const addMovies = async (req, res) => {
       //now save the movie to database
       await movie.save();
     }
+    
     const showsToCreate = [];
     showsInput.forEach((show) => {
       const showDate = show.date; // Expecting 'YYYY-MM-DD' format
