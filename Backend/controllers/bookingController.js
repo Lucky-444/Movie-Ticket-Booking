@@ -75,13 +75,14 @@ export const createBooking = async (req, res) => {
 };
 
 //Get occupied seats for a show
-export const getOccupiedSeats = async (req ,res) => {
+export const getOccupiedSeats = async (req, res) => {
   try {
-    const {showId} = req.params;
+    const { showId } = req.params;
     const show = await Show.findById(showId);
     if (!show) {
-      return res.status(404).json({ success: false, message: "Show not found" });
-
+      return res
+        .status(404)
+        .json({ success: false, message: "Show not found" });
     }
 
     const occupiedSeats = Object.keys(show.occupiedSeats);

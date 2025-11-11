@@ -7,6 +7,7 @@ import cors from 'cors' ;
 import connectDB from "./config/db.js"
 import { clerkMiddleware } from "@clerk/express";
 import showRouter from './routes/showRoutes.js' ;
+import bookingRouter from "./routes/bookingRoutes.js";
 
 
 const app = express();
@@ -29,6 +30,7 @@ app.get("/", (req, res) => {
 app.use('/api/inngest' , serve({client : inngest , functions}));
 
 app.use('/api/shows' ,  showRouter);
+app.use('/api/bookings' ,  bookingRouter);
 
 // Start the server
 app.listen(PORT, () => {
