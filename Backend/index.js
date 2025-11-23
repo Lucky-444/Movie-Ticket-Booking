@@ -9,6 +9,7 @@ import { clerkMiddleware } from "@clerk/express";
 import showRouter from './routes/showRoutes.js' ;
 import bookingRouter from "./routes/bookingRoutes.js";
 import adminRouter from "./routes/adminRoutes.js";
+import userRouter from "./routes/userRoutes.js";
 
 
 const app = express();
@@ -35,6 +36,7 @@ app.use('/api/bookings' ,  bookingRouter);
 
 app.use('/api/admin' ,  adminRouter);
 
+app.use('/api/users' ,  userRouter);
 // Start the server
 app.listen(PORT, () => {
   console.log(`✅ Server running on http://localhost:${PORT}`);
