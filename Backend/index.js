@@ -8,6 +8,7 @@ import connectDB from "./config/db.js"
 import { clerkMiddleware } from "@clerk/express";
 import showRouter from './routes/showRoutes.js' ;
 import bookingRouter from "./routes/bookingRoutes.js";
+import adminRouter from "./routes/adminRoutes.js";
 
 
 const app = express();
@@ -31,6 +32,8 @@ app.use('/api/inngest' , serve({client : inngest , functions}));
 
 app.use('/api/shows' ,  showRouter);
 app.use('/api/bookings' ,  bookingRouter);
+
+app.use('/api/admin' ,  adminRouter);
 
 // Start the server
 app.listen(PORT, () => {
